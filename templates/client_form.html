@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Edit' if client else 'Add' }} Client - CRM App{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">{{ 'Edit' if client else 'Add New' }} Client</h1>
+        <p class="text-gray-600">{{ 'Update client information' if client else 'Create a new client record' }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+        <form method="POST">
+            <div class="grid grid-cols-1 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name *</label>
+                    <input type="text" id="name" name="name" value="{{ client.name if client }}" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                           required>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
+                    <input type="email" id="email" name="email" value="{{ client.email if client }}" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                           required>
+                </div>
+
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                    <input type="tel" id="phone" name="phone" value="{{ client.phone if client }}" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
+                    <input type="text" id="company" name="company" value="{{ client.company if client }}" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select id="status" name="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="active" {{ 'selected' if client and client.status == 'active' }}>Active</option>
+                        <option value="inactive" {{ 'selected' if client and client.status == 'inactive' }}>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4">
+                    <a href="{{ url_for('clients') }}" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition duration-200">
+                        Cancel
+                    </a>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">
+                        {{ 'Update' if client else 'Create' }} Client
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
